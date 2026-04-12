@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LuxFloor — Premium Laminate Flooring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f5f0e8;
+      --warm-white: #faf8f4;
+      --stone:   #c8bfaf;
+      --walnut:  #6b5444;
+      --espresso:#2c1f14;
+      --gold:    #b8955a;
+      --gold-lt: #d4b07a;
+      --text:    #3a2e25;
+      --muted:   #8a7d72;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--warm-white);
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.4rem 5%;
+      background: rgba(250, 248, 244, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(184, 149, 90, 0.18);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.55rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--espresso);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--gold); }
+
+    nav ul {
+      list-style: none;
+      display: flex; gap: 2.5rem;
+    }
+
+    nav ul a {
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: color 0.25s;
+    }
+
+    nav ul a:hover { color: var(--gold); }
+
+    .nav-cta {
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold) !important;
+      border: 1px solid var(--gold);
+      padding: 0.55rem 1.4rem;
+      border-radius: 2px;
+      transition: background 0.25s, color 0.25s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold) !important;
+      color: #fff !important;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding-top: 80px;
+    }
+
+    .hero-text {
+      padding: 6rem 5% 6rem 8%;
+    }
+
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-text h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3rem, 5vw, 5.2rem);
+      font-weight: 300;
+      line-height: 1.12;
+      color: var(--espresso);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--walnut);
+    }
+
+    .hero-text p {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 400px;
+      margin-bottom: 2.8rem;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--espresso);
+      padding: 1rem 2.4rem;
+      border-radius: 2px;
+      transition: background 0.3s;
+      margin-right: 1.2rem;
+    }
+
+    .btn-primary:hover { background: var(--gold); }
+
+    .btn-secondary {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--walnut);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.25s;
+    }
+
+    .btn-secondary:hover { color: var(--gold); }
+
+    .hero-image {
+      height: 100vh;
+      background: linear-gradient(160deg, #d4c9b8 0%, #b0a090 40%, #7a6555 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Wood grain texture overlay */
+    .hero-image::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        repeating-linear-gradient(
+          175deg,
+          transparent,
+          transparent 18px,
+          rgba(255,255,255,0.035) 18px,
+          rgba(255,255,255,0.035) 19px
+        ),
+        repeating-linear-gradient(
+          172deg,
+          transparent,
+          transparent 40px,
+          rgba(0,0,0,0.04) 40px,
+          rgba(0,0,0,0.04) 41px
+        );
+    }
+
+    .hero-image-badge {
+      position: absolute;
+      bottom: 3rem; left: 3rem;
+      background: rgba(250, 248, 244, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 1.4rem 2rem;
+      border-left: 3px solid var(--gold);
+      max-width: 240px;
+    }
+
+    .hero-image-badge strong {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 400;
+      color: var(--espresso);
+      display: block;
+    }
+
+    .hero-image-badge span {
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── DIVIDER ── */
+    .section-divider {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding: 0 8%;
+      margin: 3rem 0;
+    }
+
+    .section-divider::before,
+    .section-divider::after {
+      content: ''; flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--stone));
+    }
+
+    .section-divider::after {
+      background: linear-gradient(to left, transparent, var(--stone));
+    }
+
+    .divider-icon {
+      width: 8px; height: 8px;
+      background: var(--gold);
+      transform: rotate(45deg);
+    }
+
+    /* ── COLLECTIONS ── */
+    .collections {
+      padding: 5rem 8% 7rem;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 300;
+      color: var(--espresso);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* ── PRODUCT GRID ── */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      cursor: pointer;
+      group: true;
+    }
+
+    .product-thumb {
+      aspect-ratio: 3/4;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Placeholder swatches — each gets a unique wood tone */
+    .product-card:nth-child(1) .product-thumb { background: linear-gradient(170deg, #c8b89a 0%, #9a7e62 100%); }
+    .product-card:nth-child(2) .product-thumb { background: linear-gradient(170deg, #b8956a 0%, #7a5c3a 100%); }
+    .product-card:nth-child(3) .product-thumb { background: linear-gradient(170deg, #d6cfc4 0%, #a09080 100%); }
+    .product-card:nth-child(4) .product-thumb { background: linear-gradient(170deg, #a08060 0%, #5c3c20 100%); }
+    .product-card:nth-child(5) .product-thumb { background: linear-gradient(170deg, #e0d8cc 0%, #b8aa98 100%); }
+
+    .product-thumb::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        168deg,
+        transparent,
+        transparent 22px,
+        rgba(255,255,255,0.06) 22px,
+        rgba(255,255,255,0.06) 23px
+      );
+    }
+
+    .product-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(44, 31, 20, 0);
+      transition: background 0.4s;
+    }
+
+    .product-card:hover .product-thumb::after {
+      background: rgba(44, 31, 20, 0.18);
+    }
+
+    .product-thumb-label {
+      position: absolute;
+      bottom: 1rem; left: 1rem; right: 1rem;
+      z-index: 1;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      background: rgba(44,31,20,0.35);
+      backdrop-filter: blur(4px);
+      padding: 0.5rem 0.8rem;
+      border-radius: 1px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .product-card:hover .product-thumb-label {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .product-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--espresso);
+      margin-bottom: 0.3rem;
+    }
+
+    .product-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.7rem;
+    }
+
+    .product-price {
+      font-size: 0.88rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── FEATURES STRIP ── */
+    .features {
+      background: var(--espresso);
+      padding: 4.5rem 8%;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+
+    .feature-item {}
+
+    .feature-icon {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      display: block;
+      color: var(--gold);
+    }
+
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--cream);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      font-size: 0.8rem;
+      color: var(--stone);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 8%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid rgba(184, 149, 90, 0.2);
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: var(--espresso);
+    }
+
+    .footer-logo span { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+      .product-card:nth-child(4),
+      .product-card:nth-child(5) { display: block; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { height: 50vh; }
+      .hero-text { padding: 4rem 6%; }
+      nav ul { display: none; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .features { grid-template-columns: repeat(2, 1fr); }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">Lux<span>Floor</span></a>
+    <ul>
+      <li><a href="#collections">Collections</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Showroom</a></li>
+      <li><a href="#" class="nav-cta">Get a Quote</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-text">
+      <span class="hero-eyebrow">Premium Laminate Flooring</span>
+      <h1>Floors That<br /><em>Define</em> a Space</h1>
+      <p>
+        Crafted for those who demand the finest in design and durability.
+        Our laminate collections bring the warmth of natural hardwood
+        into every room — with enduring precision.
+      </p>
+      <a href="#collections" class="btn-primary">Explore Collections</a>
+      <a href="#" class="btn-secondary">Book a Consultation</a>
+    </div>
+    <div class="hero-image">
+      <div class="hero-image-badge">
+        <strong>15+</strong>
+        <span>Years of Crafted Excellence</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"><div class="divider-icon"></div></div>
+
+  <!-- COLLECTIONS -->
+  <section class="collections" id="collections">
+    <div class="section-header">
+      <span class="section-eyebrow">Signature Collections</span>
+      <h2>Our Core Selections</h2>
+      <p>
+        Five distinct collections, each designed to complement a different aesthetic —
+        from contemporary minimalism to timeless heritage warmth.
+      </p>
+    </div>
+
+    <div class="product-grid">
+
+      <!-- Product 1 -->
+      <div class="product-card">
+        <div class="product-thumb">
+          <span class="product-thumb-label">View Details</span>
+        </div>
+        <div class="product-name">Product Name</div>
+        <div class="product-sub">Collection Placeholder</div>
+        <div class="product-price">From $X.XX / sq ft</div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="product-thumb">
+          <span class="product-thumb-label">View Details</span>
+        </div>
+        <div class="product-name">Product Name</div>
+        <div class="product-sub">Collection Placeholder</div>
+        <div class="product-price">From $X.XX / sq ft</div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card">
+        <div class="product-thumb">
+          <span class="product-thumb-label">View Details</span>
+        </div>
+        <div class="product-name">Product Name</div>
+        <div class="product-sub">Collection Placeholder</div>
+        <div class="product-price">From $X.XX / sq ft</div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card">
+        <div class="product-thumb">
+          <span class="product-thumb-label">View Details</span>
+        </div>
+        <div class="product-name">Product Name</div>
+        <div class="product-sub">Collection Placeholder</div>
+        <div class="product-price">From $X.XX / sq ft</div>
+      </div>
+
+      <!-- Product 5 -->
+      <div class="product-card">
+        <div class="product-thumb">
+          <span class="product-thumb-label">View Details</span>
+        </div>
+        <div class="product-name">Product Name</div>
+        <div class="product-sub">Collection Placeholder</div>
+        <div class="product-price">From $X.XX / sq ft</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FEATURES STRIP -->
+  <section class="features">
+    <div class="feature-item">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">Premium Materials</div>
+      <p class="feature-desc">High-density core with authentic wood-grain embossing for an unmatched natural look.</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">Lifetime Warranty</div>
+      <p class="feature-desc">Every plank is backed by our comprehensive lifetime residential warranty.</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">Easy Installation</div>
+      <p class="feature-desc">Click-lock system designed for professional or confident DIY installation.</p>
+    </div>
+    <div class="feature-item">
+      <span class="feature-icon">◈</span>
+      <div class="feature-title">White Glove Delivery</div>
+      <p class="feature-desc">Concierge-level delivery service, scheduled at your convenience.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Lux<span>Floor</span></div>
+    <p class="footer-copy">&copy; 2026 LuxFloor. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
