@@ -1,0 +1,2393 @@
+# INOVAR FLOOR MEDAN — Website Redesign Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Fully rebuild `index.html` as a modern, sales-first landing page for INOVAR FLOOR MEDAN — a premium laminate flooring franchise dealer in Medan, Indonesia.
+
+**Architecture:** Single self-contained `index.html` file. All CSS lives inside one `<style>` block in `<head>`. All JS lives inside one `<script>` block at the bottom of `<body>`. No external libraries — vanilla HTML5/CSS3/JS only. Images loaded from `images/` folder (user provides photos).
+
+**Tech Stack:** HTML5, CSS3 (custom properties, grid, flexbox, keyframes), Vanilla JS (IntersectionObserver, drag events, accordion), Google Fonts (Cormorant Garamond + Jost via CDN)
+
+**Note on testing:** No build tools or test runner — verification is done by opening `index.html` directly in a browser after each task and checking the described visual output.
+
+---
+
+## File Map
+
+| File | Action | Purpose |
+|---|---|---|
+| `index.html` | Full rewrite | Entire site — HTML, CSS, JS all in one file |
+| `images/` | Create folder | Placeholder folder for gallery + before/after photos |
+| `.gitignore` | Modify | Add `.superpowers/` entry |
+
+---
+
+## Task 1: Scaffold — Design Tokens, Base CSS, SEO, Skeleton HTML
+
+**Files:**
+- Modify: `index.html` (full replacement)
+
+- [ ] **Step 1: Replace `index.html` with the new skeleton**
+
+Replace the entire file contents with:
+
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>INOVAR FLOOR MEDAN — Lantai Laminate Premium Terbaik di Medan</title>
+  <meta name="description" content="Distributor resmi INOVAR FLOOR di Medan. Lantai laminate premium tahan rayap, tahan air, tahan gores. 20+ tahun pengalaman, 1000+ proyek. Hubungi kami untuk penawaran terbaik." />
+  <meta name="keywords" content="lantai laminate Medan, toko lantai Medan, INOVAR FLOOR Medan, lantai kayu Medan Timur, distributor lantai laminate Sumatera Utara" />
+  <meta property="og:title" content="INOVAR FLOOR MEDAN" />
+  <meta property="og:description" content="Lantai laminate premium — tahan rayap, tahan air, tahan gores. Distributor resmi Medan." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark:       #1c2b1e;
+      --green:      #2d6a4f;
+      --green-lt:   #3d8a65;
+      --sand:       #f5f0e8;
+      --warm-white: #faf8f4;
+      --gold:       #b8955a;
+      --gold-lt:    #d4aa70;
+      --text:       #2c2c2c;
+      --muted:      #7a7068;
+      --stone:      #c8bfaf;
+      --info-bar-h: 36px;
+      --nav-h:      70px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--sand);
+      color: var(--text);
+      font-weight: 300;
+    }
+
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+    .reveal-d4 { transition-delay: 0.4s; }
+    .reveal-d5 { transition-delay: 0.5s; }
+    .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-right { opacity: 0; transform: translateX(40px);  transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+    /* ── BUTTONS ── */
+    .btn-primary {
+      display: inline-block;
+      text-decoration: none;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #fff;
+      background: var(--green);
+      padding: 1rem 2.2rem;
+      border-radius: 3px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--green-lt); transform: translateY(-1px); }
+
+    .btn-secondary {
+      display: inline-block;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 2px;
+      transition: color 0.25s;
+    }
+    .btn-secondary:hover { color: var(--gold-lt); }
+
+    /* ── SECTION HEADERS ── */
+    .section-eyebrow {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.9rem;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300;
+      color: var(--dark);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .section-title-light { color: var(--warm-white); }
+    .section-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 560px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP INFO BAR -->
+  <!-- NAVIGATION -->
+  <!-- HERO -->
+  <!-- TRUST BADGES -->
+  <!-- STATS -->
+  <!-- PRODUCTS -->
+  <!-- WHY INOVAR -->
+  <!-- BEFORE/AFTER -->
+  <!-- GALLERY -->
+  <!-- CALCULATOR -->
+  <!-- TESTIMONIALS -->
+  <!-- FAQ -->
+  <!-- CONTACT -->
+  <!-- FLOATING WHATSAPP -->
+  <!-- FOOTER -->
+  <!-- LIGHTBOX -->
+
+  <script>
+    // JS goes here in later tasks
+  </script>
+</body>
+</html>
+```
+
+- [ ] **Step 2: Verify skeleton loads**
+
+Open `index.html` in browser. Expected: blank warm-sand page with no errors in browser console.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: scaffold new index.html with design tokens and base CSS"
+```
+
+---
+
+## Task 2: Top Info Bar
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- TOP INFO BAR -->`, add CSS inside `<style>`
+
+- [ ] **Step 1: Add HTML** (replace `<!-- TOP INFO BAR -->` comment)
+
+```html
+<!-- TOP INFO BAR -->
+<div class="info-bar">
+  <div class="info-bar-inner">
+    <span class="info-bar-item info-bar-address">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Jl. M.H Thamrin No.1-i, Medan Timur
+    </span>
+    <span class="info-bar-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.9 2 2 0 012.22.9h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.66-.66a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      (061) 4559900
+    </span>
+    <span class="info-bar-item info-bar-hours">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Sen–Sab: 09.00–16.00 WIB &nbsp;·&nbsp; Minggu: Tutup
+    </span>
+  </div>
+</div>
+```
+
+- [ ] **Step 2: Add CSS** (inside `<style>`, after base styles)
+
+```css
+/* ── INFO BAR ── */
+.info-bar {
+  background: var(--dark);
+  height: var(--info-bar-h);
+  display: flex;
+  align-items: center;
+}
+.info-bar-inner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.info-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: rgba(245,240,232,0.75);
+  white-space: nowrap;
+}
+.info-bar-item svg { flex-shrink: 0; opacity: 0.7; }
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: slim dark green bar at top with address (left), phone (center), hours (right) in small cream text.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add top info bar with address, phone, hours"
+```
+
+---
+
+## Task 3: Navigation
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- NAVIGATION -->`, add CSS, add JS to `<script>` block
+
+- [ ] **Step 1: Add HTML** (replace `<!-- NAVIGATION -->` comment)
+
+```html
+<!-- NAVIGATION -->
+<nav id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-main">INOVAR FLOOR</span>
+      <span class="nav-logo-sub">MEDAN</span>
+    </a>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#produk">Produk</a></li>
+      <li><a href="#keunggulan">Keunggulan</a></li>
+      <li><a href="#kalkulator">Kalkulator</a></li>
+      <li><a href="#kontak">Kontak</a></li>
+    </ul>
+    <a href="https://wa.me/6261XXXXXXX" class="btn-primary nav-wa" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="margin-right:6px;vertical-align:-2px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.559 4.14 1.535 5.874L.057 23.704a.75.75 0 00.92.92l5.879-1.485A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.497-5.25-1.366l-.374-.214-3.876.979.999-3.801-.233-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+      Chat WhatsApp
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── NAVIGATION ── */
+nav {
+  position: fixed;
+  top: var(--info-bar-h);
+  left: 0; right: 0;
+  z-index: 100;
+  background: var(--dark);
+  height: var(--nav-h);
+  transition: box-shadow 0.3s;
+}
+nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 5%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+.nav-logo {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+  margin-right: auto;
+}
+.nav-logo-main {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--warm-white);
+}
+.nav-logo-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--green-lt);
+  margin-top: 2px;
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+.nav-links a {
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.7);
+  transition: color 0.25s;
+}
+.nav-links a:hover { color: var(--gold); }
+.nav-wa {
+  font-size: 0.72rem;
+  padding: 0.6rem 1.3rem;
+  white-space: nowrap;
+}
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--warm-white);
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+```
+
+- [ ] **Step 3: Add JS** (inside the `<script>` block)
+
+```javascript
+// ── NAV: scroll shadow + hamburger ──
+(function() {
+  const nav = document.getElementById('main-nav');
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navMenu.classList.toggle('open');
+  });
+
+  navMenu.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navMenu.classList.remove('open');
+    });
+  });
+})();
+```
+
+- [ ] **Step 4: Verify**
+
+Open in browser. Expected: dark nav bar below the info bar. Logo shows "INOVAR FLOOR" with "MEDAN" in green below it. Links visible. WhatsApp green button on right. Nav should gain shadow on scroll (scroll down any content to test).
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add sticky navigation with hamburger menu"
+```
+
+---
+
+## Task 4: Hero Section
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- HERO -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <span class="hero-eyebrow reveal">Authorized Dealer · Medan, Indonesia</span>
+    <h1 class="hero-h1 reveal reveal-d1">
+      Lantai Impian Anda,<br>
+      <em>Kualitas Internasional</em>
+    </h1>
+    <p class="hero-sub reveal reveal-d2">
+      Distributor resmi INOVAR FLOOR di Medan. Lantai laminate premium — tahan rayap,
+      tahan air, dan tahan gores — untuk rumah, apartemen, dan gedung komersial Anda.
+    </p>
+    <div class="hero-phone reveal reveal-d3">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11.5 19.79 19.79 0 01.22 2.9 2 2 0 012.22.9h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l.66-.66a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+      <a href="tel:+62614559900">(061) 4559900</a>
+    </div>
+    <div class="hero-ctas reveal reveal-d4">
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20INOVAR%20FLOOR" class="btn-primary" target="_blank" rel="noopener">
+        Hubungi via WhatsApp →
+      </a>
+      <a href="#produk" class="btn-secondary">Lihat Koleksi ↓</a>
+    </div>
+  </div>
+  <div class="hero-panel" id="hero-panel">
+    <div class="hero-panel-overlay"></div>
+    <div class="hero-badge">
+      <span class="hero-badge-text">Franchise Resmi</span>
+      <strong class="hero-badge-brand">INOVAR FLOOR</strong>
+      <span class="hero-badge-origin">Malaysia</span>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: calc(var(--info-bar-h) + var(--nav-h));
+}
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5rem 5% 5rem 8%;
+}
+.hero-eyebrow {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+.hero-h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.8rem, 4.5vw, 5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--dark);
+  margin-bottom: 1.6rem;
+}
+.hero-h1 em {
+  font-style: italic;
+  color: var(--green);
+}
+.hero-sub {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 420px;
+  margin-bottom: 1.8rem;
+}
+.hero-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2rem;
+}
+.hero-phone svg { color: var(--gold); flex-shrink: 0; }
+.hero-phone a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem;
+  font-weight: 400;
+  color: var(--gold);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.25s;
+}
+.hero-phone a:hover { color: var(--gold-lt); }
+.hero-ctas { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+
+.hero-panel {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, #c8a882 0%, #8a6040 45%, #4a2e18 100%);
+}
+.hero-panel-overlay {
+  position: absolute; inset: 0;
+  background:
+    repeating-linear-gradient(175deg, transparent, transparent 18px,
+      rgba(255,255,255,0.03) 18px, rgba(255,255,255,0.03) 19px),
+    repeating-linear-gradient(172deg, transparent, transparent 40px,
+      rgba(0,0,0,0.04) 40px, rgba(0,0,0,0.04) 41px);
+}
+.hero-badge {
+  position: absolute;
+  bottom: 3rem; left: 3rem;
+  background: rgba(250,248,244,0.93);
+  backdrop-filter: blur(10px);
+  padding: 1.4rem 1.8rem;
+  border-left: 3px solid var(--green);
+  max-width: 220px;
+}
+.hero-badge-text {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.hero-badge-brand {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--dark);
+  line-height: 1;
+}
+.hero-badge-origin {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-top: 0.3rem;
+}
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: two-column hero. Left: gold eyebrow, large dark heading with green italic "Kualitas Internasional", subtext, large gold phone number, two CTA buttons. Right: dark wood-tone gradient panel with floating badge at bottom-left.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add hero section with headline, phone, CTAs and wood panel"
+```
+
+---
+
+## Task 5: Quality Trust Badges Strip
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- TRUST BADGES -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- TRUST BADGES -->
+<section class="trust-strip">
+  <div class="trust-inner">
+    <div class="trust-item reveal">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div>
+        <div class="trust-title">Termite Bloc</div>
+        <div class="trust-desc">Perlindungan total dari serangan rayap</div>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-d1">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/></svg>
+      <div>
+        <div class="trust-title">Aqua Bloc</div>
+        <div class="trust-desc">Tahan air, ideal untuk iklim tropis Indonesia</div>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-d2">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 3l14 9-14 9V3z"/></svg>
+      <div>
+        <div class="trust-title">Stain Resistant</div>
+        <div class="trust-desc">Permukaan tahan noda, mudah dibersihkan</div>
+      </div>
+    </div>
+    <div class="trust-item reveal reveal-d3">
+      <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <div>
+        <div class="trust-title">Wear Resistant</div>
+        <div class="trust-desc">Lapisan AC4 tahan gores dan tekanan berat</div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── TRUST STRIP ── */
+.trust-strip { background: var(--dark); padding: 3.5rem 8%; }
+.trust-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.trust-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.trust-icon {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  color: var(--gold);
+  margin-top: 2px;
+}
+.trust-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--warm-white);
+  margin-bottom: 0.3rem;
+}
+.trust-desc {
+  font-size: 0.8rem;
+  color: var(--stone);
+  line-height: 1.6;
+}
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: dark full-width strip with 4 items in a row — each with a gold SVG icon on the left and title + description on the right. Visible just below the hero.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add quality trust badges strip"
+```
+
+---
+
+## Task 6: Stats / Social Proof Strip
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- STATS -->`, add CSS, add JS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- STATS -->
+<section class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item reveal">
+      <div class="stat-number" data-target="20" data-suffix="+">0+</div>
+      <div class="stat-label">Tahun Pengalaman</div>
+    </div>
+    <div class="stat-item reveal reveal-d1">
+      <div class="stat-number" data-target="1000" data-suffix="+">0+</div>
+      <div class="stat-label">Proyek Selesai</div>
+    </div>
+    <div class="stat-item reveal reveal-d2">
+      <div class="stat-number" data-target="12">0</div>
+      <div class="stat-label">Koleksi Premium</div>
+    </div>
+    <div class="stat-item reveal reveal-d3">
+      <div class="stat-number stat-static">Seumur Hidup</div>
+      <div class="stat-label">Garansi Produk</div>
+    </div>
+  </div>
+  <p class="stats-tagline reveal">
+    Dipercaya oleh hotel, gedung perkantoran, apartemen, dan kompleks Berastagi.
+  </p>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── STATS ── */
+.stats-strip {
+  background: var(--warm-white);
+  padding: 4rem 8%;
+  text-align: center;
+  border-bottom: 1px solid var(--stone);
+}
+.stats-inner {
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.stat-item {}
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--green);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.stat-static {
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  padding-top: 0.5rem;
+}
+.stat-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.stats-tagline {
+  font-size: 0.85rem;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  font-style: italic;
+}
+```
+
+- [ ] **Step 3: Add JS** (add inside `<script>` block, after nav JS)
+
+```javascript
+// ── COUNTER ANIMATION ──
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target, 10);
+  const suffix = el.dataset.suffix || '';
+  let startTime = null;
+  const duration = 1500;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const progress = Math.min((timestamp - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(eased * target).toLocaleString('id-ID') + suffix;
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+```
+
+- [ ] **Step 4: Verify**
+
+Open in browser. Expected: white strip with 4 large green stats in a row — "20+", "1000+", "12", "Seumur Hidup" — each with a small label below. Italic tagline below. (Counters will animate in Task 17 when IntersectionObserver is added.)
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add stats strip with social proof"
+```
+
+---
+
+## Task 7: Products Section
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- PRODUCTS -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- PRODUCTS -->
+<section class="products" id="produk">
+  <div class="products-header">
+    <span class="section-eyebrow reveal">Koleksi Kami</span>
+    <h2 class="section-title reveal reveal-d1">Produk INOVAR FLOOR Premium</h2>
+    <p class="section-sub reveal reveal-d2" style="margin:0 auto">
+      Semua koleksi tersedia di toko kami. Diskon khusus tersedia —
+      hubungi kami untuk penawaran terbaik.
+    </p>
+  </div>
+  <div class="discount-banner reveal">
+    ✦ &nbsp; Diskon Tersedia &nbsp;·&nbsp; Hubungi Kami Sekarang &nbsp; ✦
+  </div>
+  <div class="product-grid">
+
+    <div class="product-card reveal">
+      <div class="product-thumb pt-eskimo">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Eskimo</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Eskimo.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d1">
+      <div class="product-thumb pt-balinese">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Balinese Teak Rio</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Balinese%20Teak%20Rio.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d2">
+      <div class="product-thumb pt-yangon">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Yangon Teak</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Yangon%20Teak.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d3">
+      <div class="product-thumb pt-vendura">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Vendura</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Vendura.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-thumb pt-amber">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Amber</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Amber.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d1">
+      <div class="product-thumb pt-sumatran">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Sumatran Teak</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Sumatran%20Teak.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d2">
+      <div class="product-thumb pt-safari">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Safari Walnut</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Safari%20Walnut.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d3">
+      <div class="product-thumb pt-qld">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">QLD Spotted Gum</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20QLD%20Spotted%20Gum.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal">
+      <div class="product-thumb pt-dinelli">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Dinelli</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Dinelli.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d1">
+      <div class="product-thumb pt-montreux">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Montreux Walnut</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Montreux%20Walnut.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d2">
+      <div class="product-thumb pt-american">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">American Walnut</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20American%20Walnut.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+    <div class="product-card reveal reveal-d3">
+      <div class="product-thumb pt-monument">
+        <span class="product-thumb-label">Lihat Detail</span>
+      </div>
+      <div class="product-name">Monument Oak</div>
+      <div class="product-tag">Premium Collection</div>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20tertarik%20dengan%20produk%20Monument%20Oak.%20Boleh%20minta%20penawaran%20harga%3F" class="btn-primary product-btn" target="_blank" rel="noopener">Minta Penawaran</a>
+    </div>
+
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── PRODUCTS ── */
+.products { padding: 6rem 8% 7rem; }
+.products-header { text-align: center; margin-bottom: 2.5rem; }
+
+.discount-banner {
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--dark);
+  background: linear-gradient(135deg, rgba(184,149,90,0.15), rgba(184,149,90,0.08));
+  border: 1px solid rgba(184,149,90,0.35);
+  padding: 0.8rem 2rem;
+  margin-bottom: 3.5rem;
+  border-radius: 2px;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+.product-card { cursor: pointer; }
+.product-thumb {
+  aspect-ratio: 3/4;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  transition: transform 0.4s ease;
+}
+.product-card:hover .product-thumb { transform: scale(1.02); }
+.product-thumb::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    168deg, transparent, transparent 22px,
+    rgba(255,255,255,0.055) 22px, rgba(255,255,255,0.055) 23px
+  );
+}
+.product-thumb::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(28,43,30,0);
+  transition: background 0.4s;
+}
+.product-card:hover .product-thumb::after { background: rgba(28,43,30,0.2); }
+
+.product-thumb-label {
+  position: absolute; bottom: 1rem; left: 1rem; right: 1rem;
+  z-index: 1;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.9);
+  background: rgba(28,43,30,0.4);
+  backdrop-filter: blur(4px);
+  padding: 0.45rem 0.7rem;
+  border-radius: 2px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.product-card:hover .product-thumb-label { opacity: 1; transform: translateY(0); }
+
+/* Wood tone gradients */
+.pt-eskimo   { background: linear-gradient(170deg, #e8dcc8 0%, #c0a880 100%); }
+.pt-balinese { background: linear-gradient(170deg, #c8945a 0%, #8a5830 100%); }
+.pt-yangon   { background: linear-gradient(170deg, #d4a055 0%, #8a5f20 100%); }
+.pt-vendura  { background: linear-gradient(170deg, #d8d0c4 0%, #b0a488 100%); }
+.pt-amber    { background: linear-gradient(170deg, #d4a060 0%, #985820 100%); }
+.pt-sumatran { background: linear-gradient(170deg, #8a6040 0%, #4a2810 100%); }
+.pt-safari   { background: linear-gradient(170deg, #a87850 0%, #6a3d22 100%); }
+.pt-qld      { background: linear-gradient(170deg, #d8c8a8 0%, #a89568 100%); }
+.pt-dinelli  { background: linear-gradient(170deg, #787060 0%, #3a3025 100%); }
+.pt-montreux { background: linear-gradient(170deg, #908878 0%, #585048 100%); }
+.pt-american { background: linear-gradient(170deg, #7a5840 0%, #3a2015 100%); }
+.pt-monument { background: linear-gradient(170deg, #c8c0b0 0%, #989080 100%); }
+
+.product-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: 0.25rem;
+}
+.product-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+.product-btn {
+  font-size: 0.7rem;
+  padding: 0.6rem 1.2rem;
+  letter-spacing: 0.12em;
+}
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: 4-column grid of 12 product cards, each with a unique wood-tone gradient swatch (3:4 ratio), product name, "Premium Collection" tag, and green "Minta Penawaran" button. Gold discount banner above the grid.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add 12-product collection grid with WhatsApp enquiry links"
+```
+
+---
+
+## Task 8: Why INOVAR FLOOR Section
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- WHY INOVAR -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- WHY INOVAR -->
+<section class="why-section" id="keunggulan">
+  <div class="why-inner">
+    <div class="why-text reveal-left">
+      <span class="section-eyebrow">Keunggulan Kami</span>
+      <h2 class="section-title">Bukan Sekadar<br>Lantai Biasa</h2>
+      <p class="why-body">
+        Banyak produk lantai murah di pasaran yang terlihat bagus namun cepat rusak —
+        retak, mengembang, dan berjamur. INOVAR FLOOR dirancang khusus untuk iklim
+        tropis seperti Indonesia: tahan lembab, tahan rayap, dan mampu bertahan selama
+        puluhan tahun meski digunakan setiap hari.
+      </p>
+      <p class="why-body" style="margin-top:1rem">
+        Sebagai franchise resmi dari Malaysia, setiap produk INOVAR FLOOR telah melalui
+        uji standar internasional. Bukan hanya indah — tapi investasi jangka panjang
+        untuk properti Anda.
+      </p>
+      <a href="#kontak" class="btn-primary" style="margin-top:2rem;display:inline-block">
+        Konsultasi Gratis →
+      </a>
+    </div>
+    <div class="why-features reveal-right">
+      <div class="why-feat-card">
+        <div class="why-feat-icon">🛡️</div>
+        <div class="why-feat-title">Termite Bloc</div>
+        <div class="why-feat-desc">Teknologi anti-rayap yang melindungi lantai Anda dari kerusakan akibat hama, bahkan di lingkungan lembab sekalipun.</div>
+      </div>
+      <div class="why-feat-card">
+        <div class="why-feat-icon">💧</div>
+        <div class="why-feat-title">Aqua Bloc</div>
+        <div class="why-feat-desc">Lapisan kedap air yang mencegah kelembaban meresap ke inti papan — ideal untuk rumah tropis di Indonesia.</div>
+      </div>
+      <div class="why-feat-card">
+        <div class="why-feat-icon">✨</div>
+        <div class="why-feat-title">Stain Resistant</div>
+        <div class="why-feat-desc">Permukaan dilapisi coating khusus yang menolak noda dari tumpahan minuman, minyak, dan kotoran sehari-hari.</div>
+      </div>
+      <div class="why-feat-card">
+        <div class="why-feat-icon">💪</div>
+        <div class="why-feat-title">Wear Resistant AC4</div>
+        <div class="why-feat-desc">Rating keausan AC4 memastikan lantai tahan terhadap lalu lintas tinggi — cocok untuk hunian maupun area komersial.</div>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── WHY INOVAR ── */
+.why-section {
+  background: var(--warm-white);
+  padding: 6rem 8%;
+}
+.why-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+.why-body {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--muted);
+}
+.why-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+.why-feat-card {
+  background: var(--sand);
+  border-radius: 6px;
+  padding: 1.5rem;
+  border: 1px solid rgba(200,191,175,0.5);
+  transition: border-color 0.3s, transform 0.3s;
+}
+.why-feat-card:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+}
+.why-feat-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.7rem;
+}
+.why-feat-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--dark);
+  margin-bottom: 0.4rem;
+}
+.why-feat-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: two-column section — left has eyebrow, large heading, two paragraphs of Indonesian copy, green CTA button. Right has 2×2 grid of feature cards with emoji icons, bold titles, and descriptions.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add Why INOVAR quality story section"
+```
+
+---
+
+## Task 9: Before/After Slider
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- BEFORE/AFTER -->`, add CSS, add JS
+
+- [ ] **Step 1: Create placeholder images folder**
+
+```bash
+mkdir -p "c:/Users/chris/OneDrive/Desktop/ClaudeLearning/images"
+```
+
+- [ ] **Step 2: Add HTML**
+
+```html
+<!-- BEFORE/AFTER -->
+<section class="ba-section">
+  <div class="ba-header reveal">
+    <span class="section-eyebrow" style="color:var(--gold-lt)">Hasil Nyata</span>
+    <h2 class="section-title section-title-light">Transformasi Nyata</h2>
+    <p style="color:var(--stone);font-size:0.9rem;margin-top:0.5rem">Geser untuk melihat perbedaannya</p>
+  </div>
+  <div class="ba-slider" id="ba-slider">
+    <div class="ba-before">
+      <img src="images/before.jpg" alt="Sebelum pemasangan lantai INOVAR FLOOR" />
+      <span class="ba-label ba-label-before">Sebelum</span>
+    </div>
+    <div class="ba-after" id="ba-after">
+      <img src="images/after.jpg" alt="Sesudah pemasangan lantai INOVAR FLOOR" />
+      <span class="ba-label ba-label-after">Sesudah</span>
+    </div>
+    <div class="ba-handle" id="ba-handle">
+      <div class="ba-handle-line"></div>
+      <div class="ba-handle-circle">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 3: Add CSS**
+
+```css
+/* ── BEFORE/AFTER ── */
+.ba-section {
+  background: var(--dark);
+  padding: 5rem 0 0;
+  overflow: hidden;
+}
+.ba-header {
+  text-align: center;
+  padding: 0 8% 3rem;
+}
+.ba-slider {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+}
+.ba-before, .ba-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.ba-after {
+  width: 50%;
+  border-right: 2px solid rgba(255,255,255,0.4);
+}
+.ba-label {
+  position: absolute;
+  bottom: 1.5rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0,0,0,0.45);
+  backdrop-filter: blur(4px);
+  padding: 0.4rem 0.9rem;
+  border-radius: 2px;
+}
+.ba-label-before { right: 1.5rem; }
+.ba-label-after  { left: 1.5rem; }
+.ba-handle {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+.ba-handle-line {
+  width: 2px;
+  flex: 1;
+  background: rgba(255,255,255,0.5);
+}
+.ba-handle-circle {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  pointer-events: all;
+  cursor: ew-resize;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+```
+
+- [ ] **Step 4: Add JS** (inside `<script>` block)
+
+```javascript
+// ── BEFORE/AFTER SLIDER ──
+(function() {
+  const slider = document.getElementById('ba-slider');
+  const after  = document.getElementById('ba-after');
+  const handle = document.querySelector('.ba-handle');
+  if (!slider) return;
+
+  let dragging = false;
+
+  function setPosition(clientX) {
+    const rect = slider.getBoundingClientRect();
+    const pct  = Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100));
+    after.style.width  = pct + '%';
+    handle.style.left  = pct + '%';
+    handle.style.transform = 'translateX(-50%)';
+  }
+
+  handle.querySelector('.ba-handle-circle').addEventListener('mousedown',  e => { dragging = true; e.preventDefault(); });
+  handle.querySelector('.ba-handle-circle').addEventListener('touchstart', e => { dragging = true; });
+  document.addEventListener('mouseup',  () => dragging = false);
+  document.addEventListener('touchend', () => dragging = false);
+  document.addEventListener('mousemove', e => { if (dragging) setPosition(e.clientX); });
+  document.addEventListener('touchmove', e => { if (dragging) setPosition(e.touches[0].clientX); });
+  slider.addEventListener('click', e => setPosition(e.clientX));
+})();
+```
+
+- [ ] **Step 5: Verify**
+
+Open in browser. Expected: dark section with heading, then a full-width slider area. If `images/before.jpg` and `images/after.jpg` don't exist yet, the slider shows broken image placeholders — that's fine. The drag handle (green circle) at the 50% mark should be draggable left/right.
+
+- [ ] **Step 6: Commit**
+
+```bash
+git add index.html images/
+git commit -m "feat: add before/after drag slider section"
+```
+
+---
+
+## Task 10: Gallery + Lightbox
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- GALLERY -->`, add CSS, add JS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- GALLERY -->
+<section class="gallery-section" id="galeri">
+  <div class="gallery-header">
+    <span class="section-eyebrow reveal">Galeri</span>
+    <h2 class="section-title reveal reveal-d1">Galeri Pemasangan</h2>
+    <p class="section-sub reveal reveal-d2" style="margin:0 auto">
+      Hasil pemasangan INOVAR FLOOR di rumah dan gedung pelanggan kami
+    </p>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal"         onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri pemasangan 1" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d1" onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri pemasangan 2" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d2" onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri pemasangan 3" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d3" onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri pemasangan 4" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d1" onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri pemasangan 5" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d2" onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri pemasangan 6" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d3" onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri pemasangan 7" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d1" onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri pemasangan 8" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-item reveal reveal-d2" onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri pemasangan 9" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lb-close" onclick="closeLightbox()">&times;</button>
+  <button class="lb-prev" onclick="navigateLightbox(-1);event.stopPropagation()">&#8592;</button>
+  <img class="lb-img" id="lb-img" src="" alt="" />
+  <button class="lb-next" onclick="navigateLightbox(1);event.stopPropagation()">&#8594;</button>
+</div>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── GALLERY ── */
+.gallery-section { padding: 6rem 8%; background: var(--sand); }
+.gallery-header  { text-align: center; margin-bottom: 3.5rem; }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.gallery-item {
+  aspect-ratio: 4/3;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--stone);
+}
+.gallery-item img { transition: transform 0.5s ease; }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: rgba(28,43,30,0);
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.35s;
+}
+.gallery-item:hover .gallery-overlay { background: rgba(28,43,30,0.45); }
+.gallery-overlay span {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.gallery-item:hover .gallery-overlay span { opacity: 1; }
+
+/* ── LIGHTBOX ── */
+.lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.92);
+  align-items: center;
+  justify-content: center;
+}
+.lightbox.open { display: flex; }
+.lb-img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 3px;
+}
+.lb-close {
+  position: absolute; top: 1.5rem; right: 2rem;
+  background: none; border: none; color: #fff;
+  font-size: 2.5rem; cursor: pointer; line-height: 1;
+  opacity: 0.7; transition: opacity 0.2s;
+}
+.lb-close:hover { opacity: 1; }
+.lb-prev, .lb-next {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.1); border: none;
+  color: #fff; font-size: 1.8rem;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.25); }
+.lb-prev { left: 2rem; }
+.lb-next { right: 2rem; }
+```
+
+- [ ] **Step 3: Add JS**
+
+```javascript
+// ── GALLERY LIGHTBOX ──
+var lbImages = Array.from(document.querySelectorAll('.gallery-item img'));
+var lbIndex  = 0;
+
+function openLightbox(i) {
+  lbIndex = i;
+  document.getElementById('lb-img').src = lbImages[i].src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox')) return;
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function navigateLightbox(dir) {
+  lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+  document.getElementById('lb-img').src = lbImages[lbIndex].src;
+}
+document.addEventListener('keydown', function(e) {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape')      { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+  if (e.key === 'ArrowLeft')   navigateLightbox(-1);
+  if (e.key === 'ArrowRight')  navigateLightbox(1);
+});
+```
+
+- [ ] **Step 4: Verify**
+
+Open in browser. Expected: 3-column grid of gallery slots (showing broken images or grey boxes until photos are added). Clicking any cell should open the lightbox overlay. Arrow keys and prev/next buttons navigate. Escape closes. Clicking outside the image closes.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add gallery grid and lightbox"
+```
+
+---
+
+## Task 11: Floor Calculator
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- CALCULATOR -->`, add CSS, add JS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- CALCULATOR -->
+<section class="calc-section" id="kalkulator">
+  <div class="calc-inner">
+    <div class="calc-header reveal">
+      <span class="section-eyebrow">Rencanakan Proyek Anda</span>
+      <h2 class="section-title">Kalkulator Kebutuhan Lantai</h2>
+      <p class="section-sub" style="margin:0 auto">
+        Masukkan ukuran ruangan untuk menghitung kebutuhan lantai Anda
+      </p>
+    </div>
+    <form class="calc-form reveal reveal-d1" id="calc-form" onsubmit="runCalculator(event)">
+      <div class="calc-fields">
+        <div class="calc-field">
+          <label for="calc-length">Panjang Ruangan (meter)</label>
+          <input type="number" id="calc-length" min="0.1" step="0.1" placeholder="misal: 5" required />
+        </div>
+        <div class="calc-field">
+          <label for="calc-width">Lebar Ruangan (meter)</label>
+          <input type="number" id="calc-width" min="0.1" step="0.1" placeholder="misal: 4" required />
+        </div>
+        <div class="calc-field">
+          <label for="calc-rooms">Jumlah Ruangan</label>
+          <input type="number" id="calc-rooms" min="1" step="1" placeholder="misal: 1" value="1" />
+        </div>
+      </div>
+      <button type="submit" class="btn-primary calc-btn">Hitung Sekarang</button>
+    </form>
+    <div class="calc-result" id="calc-result" style="display:none">
+      <div class="calc-result-row">
+        <span>Luas total ruangan:</span>
+        <strong id="calc-area">—</strong>
+      </div>
+      <div class="calc-result-row">
+        <span>Estimasi kebutuhan (+ 10% cadangan):</span>
+        <strong id="calc-needed">—</strong>
+      </div>
+      <div class="calc-rec" id="calc-rec"></div>
+      <a id="calc-wa-btn" href="#" class="btn-primary" target="_blank" rel="noopener" style="margin-top:1.5rem;display:inline-block">
+        Dapatkan Penawaran via WhatsApp →
+      </a>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── CALCULATOR ── */
+.calc-section { background: var(--warm-white); padding: 6rem 8%; }
+.calc-inner   { max-width: 640px; margin: 0 auto; }
+.calc-header  { text-align: center; margin-bottom: 3rem; }
+.calc-fields  { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.2rem; margin-bottom: 1.8rem; }
+.calc-field   { display: flex; flex-direction: column; gap: 0.5rem; }
+.calc-field label { font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); }
+.calc-field input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--stone);
+  border-radius: 3px;
+  background: var(--sand);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: border-color 0.25s;
+}
+.calc-field input:focus { outline: none; border-color: var(--green); }
+.calc-btn { width: 100%; justify-content: center; padding: 1rem; }
+.calc-result {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: var(--sand);
+  border-radius: 6px;
+  border: 1px solid rgba(45,106,79,0.3);
+  animation: fadeSlideDown 0.4s ease;
+}
+@keyframes fadeSlideDown {
+  from { opacity: 0; transform: translateY(-12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.calc-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--stone);
+  font-size: 0.9rem;
+  color: var(--text);
+}
+.calc-result-row:last-of-type { border-bottom: none; }
+.calc-result-row strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  color: var(--green);
+}
+.calc-rec {
+  margin-top: 1.2rem;
+  padding: 1rem 1.2rem;
+  background: rgba(45,106,79,0.08);
+  border-left: 3px solid var(--green);
+  border-radius: 2px;
+  font-size: 0.85rem;
+  color: var(--text);
+  line-height: 1.65;
+}
+.calc-rec strong { color: var(--green); }
+```
+
+- [ ] **Step 3: Add JS**
+
+```javascript
+// ── FLOOR CALCULATOR ──
+function runCalculator(e) {
+  e.preventDefault();
+  var length = parseFloat(document.getElementById('calc-length').value);
+  var width  = parseFloat(document.getElementById('calc-width').value);
+  var rooms  = parseInt(document.getElementById('calc-rooms').value, 10) || 1;
+
+  var area   = length * width * rooms;
+  var needed = Math.ceil(area * 1.1);
+
+  var rec = '';
+  if (area < 15) {
+    rec = '<strong>Rekomendasi:</strong> Eskimo, Vendura, atau Monument Oak — desain compact yang elegan untuk ruang kecil.';
+  } else if (area <= 30) {
+    rec = '<strong>Rekomendasi:</strong> Sumatran Teak, Balinese Teak Rio, atau Safari Walnut — karakter kuat untuk ruang menengah.';
+  } else {
+    rec = '<strong>Rekomendasi:</strong> American Walnut, Montreux Walnut, atau Yangon Teak — kesan luas dan mewah untuk ruang besar.';
+  }
+
+  var msg = encodeURIComponent('Halo, saya perlu lantai untuk ruangan seluas ' + needed + ' m\u00B2 (sudah termasuk cadangan 10%). Bisa minta penawaran terbaik?');
+
+  document.getElementById('calc-area').textContent   = area.toFixed(1) + ' m\u00B2';
+  document.getElementById('calc-needed').textContent = needed + ' m\u00B2';
+  document.getElementById('calc-rec').innerHTML      = rec;
+  document.getElementById('calc-wa-btn').href        = 'https://wa.me/6261XXXXXXX?text=' + msg;
+
+  var result = document.getElementById('calc-result');
+  result.style.display = 'block';
+}
+```
+
+- [ ] **Step 4: Verify**
+
+Open in browser. Enter `5` × `4` × `1` and click Hitung. Expected:
+- Luas total: 20.0 m²
+- Estimasi kebutuhan: 22 m² (20 × 1.1 = 22)
+- Recommendation: Sumatran Teak / Balinese Teak Rio / Safari Walnut (15–30 m² range)
+- Green WhatsApp button appears
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add floor area calculator with collection recommendation"
+```
+
+---
+
+## Task 12: Testimonials
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- TESTIMONIALS -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="testi-header">
+    <span class="section-eyebrow reveal">Pelanggan Kami</span>
+    <h2 class="section-title reveal reveal-d1">Yang Mereka Katakan</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">Kualitas lantainya luar biasa, sudah 5 tahun dipasang masih seperti baru. Tim INOVAR FLOOR Medan sangat profesional dan ramah.</p>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-author">Budi S.</div>
+      <div class="testi-location">Pelanggan dari Medan Selayang</div>
+    </div>
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">Saya pasang di seluruh unit apartemen saya, hasilnya memuaskan. Tahan lama dan mudah dirawat. Sangat direkomendasikan.</p>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-author">Hendra L.</div>
+      <div class="testi-location">Pelanggan dari Medan Baru</div>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-quote-mark">"</div>
+      <p class="testi-text">Produknya premium, harganya bersaing. Puas banget, rekomendasikan ke siapa saja yang mau renovasi lantai.</p>
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-author">Sari W.</div>
+      <div class="testi-location">Pelanggan dari Medan Sunggal</div>
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── TESTIMONIALS ── */
+.testimonials { background: var(--sand); padding: 6rem 8%; }
+.testi-header { text-align: center; margin-bottom: 3.5rem; }
+.testi-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.testi-card {
+  background: var(--warm-white);
+  padding: 2.5rem 2rem;
+  border-radius: 6px;
+  border: 1px solid rgba(200,191,175,0.5);
+  position: relative;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(28,43,30,0.1); }
+.testi-quote-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.25;
+  line-height: 0.8;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+.testi-text { font-size: 0.92rem; line-height: 1.8; color: var(--text); margin-bottom: 1.2rem; font-style: italic; }
+.testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+.testi-author { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 500; color: var(--dark); }
+.testi-location { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); margin-top: 0.2rem; }
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: 3 testimonial cards side by side on warm sand background. Each has a decorative gold quote mark, italic testimonial text, 5 gold stars, name, and location.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add testimonials section with 3 placeholder cards"
+```
+
+---
+
+## Task 13: FAQ Accordion
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- FAQ -->`, add CSS, add JS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="faq-header">
+      <span class="section-eyebrow reveal">Ada Pertanyaan?</span>
+      <h2 class="section-title reveal reveal-d1">Pertanyaan Umum</h2>
+    </div>
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Berapa lama proses pemasangan lantai laminate?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Tergantung luas area, rata-rata 50–80 m² dapat dipasang per hari oleh tim kami. Kami akan memberikan estimasi waktu yang akurat setelah survei lokasi.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-d1">
+        <button class="faq-question">
+          Apakah lantai laminate bisa dipasang di kamar mandi?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Produk INOVAR FLOOR dengan teknologi Aqua Bloc tahan terhadap percikan air dan kelembaban. Namun tidak disarankan untuk area yang terendam air secara langsung dan terus-menerus seperti shower area.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-d2">
+        <button class="faq-question">
+          Bagaimana cara merawat lantai laminate INOVAR FLOOR?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Cukup disapu secara rutin dan dipel dengan kain lembab. Hindari penggunaan air berlebihan, bahan kimia keras, atau scrubber kasar. Lantai INOVAR FLOOR sangat mudah dirawat untuk penggunaan sehari-hari.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-d3">
+        <button class="faq-question">
+          Apakah INOVAR FLOOR Medan menyediakan jasa pemasangan?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Ya, kami menyediakan jasa pemasangan profesional untuk setiap pembelian produk. Tim instalasi kami berpengalaman dan akan memastikan hasil pemasangan yang rapi dan presisi.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question">
+          Berapa lama garansi produk INOVAR FLOOR?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Setiap produk INOVAR FLOOR dilengkapi garansi seumur hidup untuk penggunaan residensial. Ini adalah bukti nyata kepercayaan kami terhadap kualitas produk yang kami jual.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal reveal-d1">
+        <button class="faq-question">
+          Apakah ada minimum order?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-answer">
+          <p>Tidak ada minimum order. Kami melayani dari satu ruangan kecil hingga proyek gedung berskala besar seperti hotel, apartemen, dan gedung perkantoran.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── FAQ ── */
+.faq-section { background: var(--warm-white); padding: 6rem 8%; }
+.faq-inner   { max-width: 800px; margin: 0 auto; }
+.faq-header  { text-align: center; margin-bottom: 3rem; }
+.faq-list    { display: flex; flex-direction: column; gap: 0; }
+.faq-item    { border-bottom: 1px solid var(--stone); }
+.faq-item:first-child { border-top: 1px solid var(--stone); }
+.faq-question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 1.4rem 0;
+  text-align: left;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--dark);
+  cursor: pointer;
+  gap: 1rem;
+  transition: color 0.25s;
+}
+.faq-question:hover { color: var(--green); }
+.faq-icon {
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  flex-shrink: 0;
+  transition: transform 0.3s;
+  line-height: 1;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); }
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+.faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.2rem; }
+.faq-answer p { font-size: 0.88rem; line-height: 1.8; color: var(--muted); }
+```
+
+- [ ] **Step 3: Add JS**
+
+```javascript
+// ── FAQ ACCORDION ──
+document.querySelectorAll('.faq-question').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var item   = btn.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!isOpen) item.classList.add('open');
+  });
+});
+```
+
+- [ ] **Step 4: Verify**
+
+Open in browser. Expected: 6 FAQ rows separated by thin lines. Clicking a question expands the answer smoothly. Clicking again (or another question) collapses it. The `+` icon rotates to `×` when open.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add FAQ accordion with 6 questions"
+```
+
+---
+
+## Task 14: Contact Section + Footer
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- CONTACT -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- CONTACT -->
+<section class="contact-section" id="kontak">
+  <div class="contact-inner">
+    <div class="contact-details reveal-left">
+      <span class="section-eyebrow" style="color:var(--gold-lt)">Hubungi Kami</span>
+      <h2 class="section-title section-title-light">Kunjungi Toko Kami</h2>
+      <a href="tel:+62614559900" class="contact-phone">(061) 4559900</a>
+      <p class="contact-mobile" id="contact-mobile">📱 [Nomor HP segera hadir]</p>
+      <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20INOVAR%20FLOOR" class="btn-primary contact-wa-btn" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="margin-right:8px;vertical-align:-2px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.559 4.14 1.535 5.874L.057 23.704a.75.75 0 00.92.92l5.879-1.485A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.497-5.25-1.366l-.374-.214-3.876.979.999-3.801-.233-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Chat WhatsApp Sekarang
+      </a>
+      <div class="contact-address">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <p>Jl. M.H Thamrin No.1-i, Sidodadi,<br>Kec. Medan Tim., Kota Medan,<br>Sumatera Utara 20233</p>
+      </div>
+      <div class="contact-hours">
+        <table>
+          <tr><td>Senin – Sabtu</td><td>09.00 – 16.00 WIB</td></tr>
+          <tr><td>Minggu</td><td>Tutup</td></tr>
+        </table>
+      </div>
+      <p class="contact-tagline">
+        Kami siap membantu Anda menemukan lantai yang tepat —<br>
+        datang langsung atau hubungi kami.
+      </p>
+    </div>
+    <div class="contact-map reveal-right">
+      <iframe
+        src="https://maps.google.com/maps?q=Jl.+M.H+Thamrin+No.1-i,+Sidodadi,+Medan+Timur,+Kota+Medan&output=embed"
+        width="100%" height="100%" frameborder="0"
+        style="border:0;border-radius:8px"
+        allowfullscreen loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Lokasi INOVAR FLOOR MEDAN">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-logo">INOVAR FLOOR <span>MEDAN</span></div>
+      <p class="footer-tagline">Distributor Resmi INOVAR FLOOR · Medan, Indonesia</p>
+    </div>
+    <nav class="footer-links">
+      <a href="#produk">Produk</a>
+      <a href="#keunggulan">Keunggulan</a>
+      <a href="#kalkulator">Kalkulator</a>
+      <a href="#kontak">Kontak</a>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 INOVAR FLOOR MEDAN. All rights reserved.</p>
+  </div>
+</footer>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── CONTACT ── */
+.contact-section { background: var(--dark); padding: 6rem 8%; }
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+.contact-phone {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 300;
+  color: var(--gold);
+  text-decoration: none;
+  margin: 1rem 0 0.5rem;
+  transition: color 0.25s;
+}
+.contact-phone:hover { color: var(--gold-lt); }
+.contact-mobile { font-size: 0.85rem; color: var(--stone); margin-bottom: 1.5rem; }
+.contact-wa-btn { display: inline-flex; align-items: center; margin-bottom: 2rem; }
+.contact-address {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+.contact-address p { font-size: 0.88rem; color: var(--stone); line-height: 1.7; }
+.contact-hours table { border-collapse: collapse; }
+.contact-hours td {
+  font-size: 0.82rem;
+  color: var(--stone);
+  padding: 0.25rem 2rem 0.25rem 0;
+}
+.contact-hours td:first-child { color: var(--warm-white); font-weight: 400; }
+.contact-tagline {
+  font-size: 0.82rem;
+  color: rgba(200,191,175,0.6);
+  line-height: 1.7;
+  margin-top: 1.5rem;
+  font-style: italic;
+}
+.contact-map { height: 440px; border-radius: 8px; overflow: hidden; }
+
+/* ── FOOTER ── */
+footer { background: #111a12; padding: 3rem 8%; }
+.footer-top {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(200,191,175,0.15);
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--warm-white);
+}
+.footer-logo span { color: var(--green-lt); }
+.footer-tagline { font-size: 0.75rem; color: var(--muted); margin-top: 0.4rem; letter-spacing: 0.06em; }
+.footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
+.footer-links a {
+  text-decoration: none;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.25s;
+}
+.footer-links a:hover { color: var(--gold); }
+.footer-bottom { max-width: 1200px; margin: 0 auto; }
+.footer-bottom p { font-size: 0.75rem; color: rgba(122,112,104,0.6); }
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: dark full-width contact section — left shows heading, large gold phone number, WhatsApp button, address, hours table. Right shows Google Maps iframe (may show a map or a grey box depending on network). Footer below with logo and links.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add contact section with map, and footer"
+```
+
+---
+
+## Task 15: Floating WhatsApp Button
+
+**Files:**
+- Modify: `index.html` — add HTML after `<!-- FLOATING WHATSAPP -->`, add CSS
+
+- [ ] **Step 1: Add HTML**
+
+```html
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20ingin%20bertanya%20tentang%20produk%20INOVAR%20FLOOR" class="float-wa" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.559 4.14 1.535 5.874L.057 23.704a.75.75 0 00.92.92l5.879-1.485A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.907 0-3.698-.497-5.25-1.366l-.374-.214-3.876.979.999-3.801-.233-.389A9.956 9.956 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+  </svg>
+  <span class="float-wa-tooltip">Ada pertanyaan? Chat kami!</span>
+</a>
+```
+
+- [ ] **Step 2: Add CSS**
+
+```css
+/* ── FLOATING WHATSAPP ── */
+.float-wa {
+  position: fixed;
+  bottom: 2rem; right: 2rem;
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+  z-index: 200;
+  text-decoration: none;
+  animation: waPulse 2.5s ease-in-out infinite;
+  transition: transform 0.2s;
+}
+.float-wa:hover { transform: scale(1.1); animation: none; }
+.float-wa svg { width: 28px; height: 28px; }
+@keyframes waPulse {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+  50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.75), 0 0 0 8px rgba(37,211,102,0.12); }
+}
+.float-wa-tooltip {
+  position: absolute;
+  right: 70px;
+  background: var(--dark);
+  color: var(--warm-white);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  padding: 0.5rem 0.9rem;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(8px);
+  transition: opacity 0.25s, transform 0.25s;
+}
+.float-wa-tooltip::after {
+  content: '';
+  position: absolute;
+  right: -6px; top: 50%;
+  transform: translateY(-50%);
+  border: 6px solid transparent;
+  border-left-color: var(--dark);
+  border-right: none;
+}
+.float-wa:hover .float-wa-tooltip { opacity: 1; transform: translateX(0); }
+```
+
+- [ ] **Step 3: Verify**
+
+Open in browser. Expected: green pulsing WhatsApp button fixed at bottom-right of screen. On hover: stops pulsing, scales up slightly, tooltip "Ada pertanyaan? Chat kami!" appears to the left with an arrow pointing right.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add floating WhatsApp button with pulse animation and tooltip"
+```
+
+---
+
+## Task 16: Responsive CSS
+
+**Files:**
+- Modify: `index.html` — add responsive CSS inside `<style>`, at the very end of the style block
+
+- [ ] **Step 1: Add CSS**
+
+```css
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-panel { height: 45vh; }
+  .hero-text { padding: 4rem 6%; }
+  .trust-inner { grid-template-columns: repeat(2, 1fr); }
+  .product-grid { grid-template-columns: repeat(3, 1fr); }
+  .why-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .contact-map { height: 320px; }
+}
+
+@media (max-width: 768px) {
+  :root { --info-bar-h: 32px; }
+  .info-bar-address { display: none; }
+  .info-bar-inner { justify-content: center; gap: 1.5rem; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(var(--info-bar-h) + var(--nav-h));
+    left: 0; right: 0;
+    background: var(--dark);
+    flex-direction: column;
+    gap: 0;
+    padding: 1rem 0 1.5rem;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li a { display: block; padding: 0.8rem 5%; font-size: 0.85rem; }
+  .nav-wa { display: none; }
+  .hamburger { display: flex; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-features { grid-template-columns: 1fr; }
+  .testi-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .calc-fields { grid-template-columns: 1fr 1fr; }
+  .footer-top { flex-direction: column; gap: 1.5rem; }
+  .footer-links { gap: 1.2rem; }
+  .ba-slider { height: 300px; }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 2.4rem; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+  .product-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
+  .stats-inner { grid-template-columns: repeat(2, 1fr); }
+  .trust-inner { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .calc-fields { grid-template-columns: 1fr; }
+  .float-wa { width: 52px; height: 52px; bottom: 1.2rem; right: 1.2rem; }
+  .float-wa svg { width: 24px; height: 24px; }
+}
+```
+
+- [ ] **Step 2: Verify mobile layout**
+
+Open browser DevTools → toggle device toolbar → test at 375px (iPhone), 768px (iPad), 1024px (small laptop). Expected:
+- 375px: single-column hero, hamburger nav, 1-col products, 1-col trust badges
+- 768px: 2-col products, hamburger nav with working open/close
+- 1024px: hero stacks, 3-col products, trust badges 2×2
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add responsive breakpoints for mobile and tablet"
+```
+
+---
+
+## Task 17: Scroll Animations + Parallax + Counters
+
+**Files:**
+- Modify: `index.html` — add JS inside `<script>` block
+
+- [ ] **Step 1: Add JS** (inside `<script>` block, after all other JS)
+
+```javascript
+// ── SCROLL ANIMATIONS (IntersectionObserver) ──
+(function() {
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      el.classList.add('visible');
+      // Trigger counter if this is a stat number
+      if (el.classList.contains('stat-number') && el.dataset.target) {
+        animateCounter(el);
+      }
+      observer.unobserve(el);
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(function(el) {
+    observer.observe(el);
+  });
+  document.querySelectorAll('.stat-number[data-target]').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+// ── PARALLAX HERO PANEL ──
+(function() {
+  var panel = document.getElementById('hero-panel');
+  if (!panel) return;
+  window.addEventListener('scroll', function() {
+    var scrolled = window.scrollY;
+    panel.style.transform = 'translateY(' + (scrolled * 0.25) + 'px)';
+  }, { passive: true });
+})();
+```
+
+- [ ] **Step 2: Verify scroll animations**
+
+Open in browser. Scroll down slowly. Expected:
+- Each section's elements fade in and slide up as they enter the viewport
+- Product cards stagger in with 100ms delays
+- Stats (20+, 1000+, 12) count up from 0 when scrolled into view
+- "Seumur Hidup" text appears without counting (no `data-target`)
+- Hero wood panel moves slightly slower than scroll (parallax)
+- Left/right text and feature cards in Why section slide in from their respective sides
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add scroll reveal animations, counter animation, and parallax"
+```
+
+---
+
+## Task 18: Hero Load Animation
+
+**Files:**
+- Modify: `index.html` — add CSS keyframes + JS for initial page load animation
+
+- [ ] **Step 1: Add CSS keyframe** (inside `<style>`)
+
+```css
+/* ── HERO LOAD ANIMATION ── */
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.hero-eyebrow  { animation: heroFadeUp 0.7s ease both; animation-delay: 0.1s; }
+.hero-h1       { animation: heroFadeUp 0.7s ease both; animation-delay: 0.25s; }
+.hero-sub      { animation: heroFadeUp 0.7s ease both; animation-delay: 0.4s; }
+.hero-phone    { animation: heroFadeUp 0.7s ease both; animation-delay: 0.55s; }
+.hero-ctas     { animation: heroFadeUp 0.7s ease both; animation-delay: 0.7s; }
+.hero-badge    { animation: heroFadeUp 0.8s ease both; animation-delay: 0.5s; }
+```
+
+- [ ] **Step 2: Remove `reveal` classes from hero elements** (hero loads on page open, not on scroll)
+
+In the HTML, remove the `reveal`, `reveal-d1`, `reveal-d2`, `reveal-d3`, `reveal-d4` classes from the hero section's `.hero-eyebrow`, `.hero-h1`, `.hero-sub`, `.hero-phone`, `.hero-ctas` elements — they now use CSS `animation` instead.
+
+The HTML for those elements should be:
+```html
+<span class="hero-eyebrow">Authorized Dealer · Medan, Indonesia</span>
+<h1 class="hero-h1">...</h1>
+<p class="hero-sub">...</p>
+<div class="hero-phone">...</div>
+<div class="hero-ctas">...</div>
+```
+
+- [ ] **Step 3: Verify**
+
+Refresh the page (hard refresh: Ctrl+Shift+R). Expected: hero text elements animate in from below on initial page load — eyebrow first, then heading, then subtext, then phone, then buttons — each staggered ~150ms apart.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git commit -m "feat: add staggered hero load animation on page open"
+```
+
+---
+
+## Task 19: Final Polish, Images Folder, .gitignore
+
+**Files:**
+- Modify: `.gitignore`
+- Create: `images/.gitkeep`
+
+- [ ] **Step 1: Update `.gitignore`**
+
+Add these lines to `.gitignore`:
+
+```
+.superpowers/
+```
+
+- [ ] **Step 2: Create images placeholder**
+
+```bash
+mkdir -p "c:/Users/chris/OneDrive/Desktop/ClaudeLearning/images"
+touch "c:/Users/chris/OneDrive/Desktop/ClaudeLearning/images/.gitkeep"
+```
+
+- [ ] **Step 3: Full page browser check**
+
+Open `index.html` in browser. Walk through every section top to bottom:
+- [ ] Top info bar visible with address, phone, hours
+- [ ] Nav sticky on scroll, shadow appears
+- [ ] Hamburger works at mobile width (resize browser)
+- [ ] Hero: heading, phone number, both CTAs visible
+- [ ] Trust badges strip: 4 items visible in dark strip
+- [ ] Stats: 4 stats with labels visible
+- [ ] Products: 12 cards in grid, each with unique wood tone
+- [ ] Why section: 2-column with text and 4 feature cards
+- [ ] Before/After: slider drags left/right
+- [ ] Gallery: 9 grid items, lightbox opens on click
+- [ ] Calculator: enter 5×4×1 → shows 20.0m² and 22m²
+- [ ] Testimonials: 3 cards
+- [ ] FAQ: 6 accordion items expand/collapse
+- [ ] Contact: phone, address, hours, map iframe
+- [ ] Footer: logo, links, copyright
+- [ ] Floating WhatsApp button visible at bottom-right, pulses
+- [ ] Scroll down: reveals animate in smoothly, stats count up
+
+- [ ] **Step 4: Final commit**
+
+```bash
+git add .gitignore images/.gitkeep
+git commit -m "chore: add images folder and update .gitignore"
+```
+
+---
+
+## After Implementation
+
+**Assets the owner needs to provide before the site is production-ready:**
+
+| Item | Where to use |
+|---|---|
+| Mobile WhatsApp number | Replace all `6261XXXXXXX` in HTML (search for `XXXXXXX`) |
+| `images/before.jpg` | Before/After slider |
+| `images/after.jpg` | Before/After slider |
+| `images/gallery-1.jpg` → `gallery-9.jpg` | Gallery grid (download 9 best from Instagram) |
+| Real testimonial quotes | Replace 3 placeholder cards in testimonials section |
