@@ -150,11 +150,18 @@
       top: var(--info-bar-h);
       left: 0; right: 0;
       z-index: 100;
-      background: var(--dark);
       height: var(--nav-h);
-      transition: box-shadow 0.3s;
+      background: transparent;
+      backdrop-filter: blur(0px);
+      -webkit-backdrop-filter: blur(0px);
+      transition: background 0.45s ease, backdrop-filter 0.45s ease, box-shadow 0.45s ease;
     }
-    nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+    nav.scrolled {
+      background: rgba(28,43,30,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.2);
+    }
     .nav-inner {
       max-width: 1400px;
       margin: 0 auto;
@@ -176,17 +183,21 @@
       font-size: 1.35rem;
       font-weight: 500;
       letter-spacing: 0.1em;
-      color: var(--warm-white);
+      color: var(--dark);
+      transition: color 0.45s ease;
     }
+    nav.scrolled .nav-logo-main { color: var(--warm-white); }
     .nav-logo-sub {
       font-family: 'Figtree', sans-serif;
       font-size: 0.6rem;
       font-weight: 400;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--green-lt);
+      color: var(--green);
       margin-top: 2px;
+      transition: color 0.45s ease;
     }
+    nav.scrolled .nav-logo-sub { color: var(--green-lt); }
     .nav-links {
       list-style: none;
       display: flex;
@@ -198,9 +209,10 @@
       font-weight: 400;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: rgba(245,240,232,0.7);
+      color: rgba(44,44,44,0.75);
       transition: color 0.25s;
     }
+    nav.scrolled .nav-links a { color: rgba(245,240,232,0.75); }
     .nav-links a:hover { color: var(--gold); }
     .nav-wa {
       font-size: 0.72rem;
@@ -220,9 +232,10 @@
       display: block;
       width: 22px;
       height: 2px;
-      background: var(--warm-white);
-      transition: transform 0.3s, opacity 0.3s;
+      background: var(--dark);
+      transition: transform 0.3s, opacity 0.3s, background 0.45s ease;
     }
+    nav.scrolled .hamburger span { background: var(--warm-white); }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
