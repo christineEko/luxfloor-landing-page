@@ -270,7 +270,7 @@ Clean white background. Accordion style — click to expand/collapse answers.
 1. *Berapa lama proses pemasangan lantai laminate?* — Tergantung luas area, rata-rata 50–80 m² per hari.
 2. *Apakah lantai laminate bisa dipasang di kamar mandi?* — Produk INOVAR dengan teknologi Aqua Bloc tahan percikan air, namun tidak disarankan untuk area yang terendam air sepenuhnya.
 3. *Bagaimana cara merawat lantai laminate INOVAR?* — Cukup disapu dan dipel dengan kain lembab. Hindari air berlebihan dan bahan kimia keras.
-4. *Apakah INOVAR FLOOR menyediakan jasa pemasangan?* — Ya, kami bekerja sama dengan tim instalasi profesional berpengalaman. *(⚠️ Confirm with owner — update if not offered)*
+4. *Apakah INOVAR FLOOR menyediakan jasa pemasangan?* — Ya, kami menyediakan jasa pemasangan profesional untuk setiap pembelian produk.
 5. *Berapa garansi produk INOVAR FLOOR?* — Garansi seumur hidup untuk penggunaan residensial.
 6. *Apakah ada minimum order?* — Tidak ada minimum order. Kami melayani dari satu ruangan hingga proyek gedung berskala besar.
 
