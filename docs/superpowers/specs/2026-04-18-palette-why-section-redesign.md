@@ -172,7 +172,61 @@ The following old classes are **replaced entirely** — remove their CSS rules a
 
 ---
 
-## 6. Out of Scope
+## 6. Products Section — Trim + "See More" CTA
+
+### 6.1 Keep only first 4 products
+
+Remove product cards 5–12 from the `.product-grid`. Keep only:
+1. Eskimo
+2. Balinese Teak Rio
+3. Yangon Teak
+4. Vendura
+
+Delete all HTML for: Amber, Sumatran Teak, Safari Walnut, QLD Spotted Gum, Dinelli, Montreux Walnut, American Walnut, Monument Oak.
+
+Also remove their corresponding CSS thumb classes (`pt-amber`, `pt-sumatran`, `pt-safari`, `pt-qld`, `pt-dinelli`, `pt-montreux`, `pt-american`, `pt-monument`) from the `<style>` block.
+
+### 6.2 "See More" block
+
+After the closing `</div>` of `.product-grid`, add a centred block:
+
+```html
+<div class="products-more reveal">
+  <p class="products-more-text">
+    Ini hanya sebagian kecil dari koleksi kami. Ada puluhan pilihan warna, tekstur, dan
+    karakter kayu yang menunggu untuk Anda temukan — ceritakan proyek Anda kepada kami,
+    dan kami akan merekomendasikan yang paling tepat untuk ruangan Anda.
+  </p>
+  <a href="https://wa.me/6261XXXXXXX?text=Halo%2C%20saya%20ingin%20melihat%20koleksi%20lengkap%20INOVAR%20FLOOR" class="btn-primary" target="_blank" rel="noopener">
+    Lihat Koleksi Lengkap &rarr;
+  </a>
+</div>
+```
+
+**CSS for `.products-more`:**
+```css
+.products-more {
+  text-align: center;
+  margin-top: 3.5rem;
+  padding: 2.5rem;
+  border: 1px solid rgba(var(--stone), 0.4);
+  border-radius: 4px;
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.products-more-text {
+  font-size: 1rem;
+  line-height: 1.85;
+  color: var(--muted);
+  margin-bottom: 1.8rem;
+  font-style: italic;
+}
+```
+
+---
+
+## 7. Out of Scope
 
 - No changes to any other section's HTML structure — only color tokens change via search-and-replace
 - No font changes
