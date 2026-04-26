@@ -226,10 +226,110 @@ After the closing `</div>` of `.product-grid`, add a centred block:
 
 ---
 
-## 7. Out of Scope
+## 7. Gallery Section — Horizontal Marquee
+
+Replace the static 9-image grid with a continuously scrolling horizontal marquee. The lightbox remains functional — clicking any image opens it.
+
+### 7.1 HTML structure
+
+Remove `.gallery-grid` and all `.gallery-item` divs. Replace with:
+
+```html
+<div class="gallery-track-wrap">
+  <div class="gallery-track">
+    <!-- set A -->
+    <div class="gallery-slide" onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri 1" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri 2" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri 3" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri 4" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri 5" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri 6" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri 7" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri 8" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri 9" loading="lazy"></div>
+    <!-- set B — duplicate for seamless loop -->
+    <div class="gallery-slide" onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri 1" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri 2" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri 3" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri 4" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri 5" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri 6" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri 7" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri 8" loading="lazy"></div>
+    <div class="gallery-slide" onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri 9" loading="lazy"></div>
+  </div>
+</div>
+```
+
+The track is duplicated (set A + set B) so the loop is seamless — when set A scrolls fully off-screen, set B takes over, and the animation resets invisibly.
+
+### 7.2 CSS
+
+```css
+.gallery-track-wrap {
+  overflow: hidden;
+  width: 100%;
+  cursor: pointer;
+}
+
+.gallery-track {
+  display: flex;
+  gap: 1rem;
+  width: max-content;
+  animation: gallery-scroll 30s linear infinite;
+}
+
+.gallery-track:hover {
+  animation-play-state: paused;
+}
+
+.gallery-slide {
+  flex: 0 0 340px;
+  height: 260px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-slide:hover img {
+  transform: scale(1.05);
+}
+
+@keyframes gallery-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .gallery-slide { flex: 0 0 260px; height: 200px; }
+  .gallery-track { animation-duration: 22s; }
+}
+```
+
+**Key details:**
+- `translateX(-50%)` moves exactly one full set (set A) off screen, then the animation resets — perfectly seamless
+- Hovering pauses the scroll so visitors can click without it moving
+- `.gallery-grid` and `.gallery-item` CSS rules are removed entirely
+
+### 7.3 JS changes
+
+The existing lightbox JS (`openLightbox`, `navigateLightbox`, `closeLightbox`) is unchanged. The `lbImages` query selector currently targets `.gallery-item img` — update it to `.gallery-slide img` and slice to first 9 only (to avoid duplicates opening in lightbox):
+
+```js
+var lbImages = Array.from(document.querySelectorAll('.gallery-slide img')).slice(0, 9);
+```
+
+---
+
+## 8. Out of Scope
 
 - No changes to any other section's HTML structure — only color tokens change via search-and-replace
 - No font changes
-- No JS changes beyond adding delay classes
-- Product section content unchanged
 - Images folder unchanged
