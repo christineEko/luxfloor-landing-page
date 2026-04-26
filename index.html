@@ -118,6 +118,11 @@
 
     /* ── INFO BAR ── */
     .info-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 101;
       background: var(--dark);
       height: var(--info-bar-h);
       display: flex;
@@ -183,21 +188,23 @@
       font-size: 1.35rem;
       font-weight: 500;
       letter-spacing: 0.1em;
-      color: var(--dark);
-      transition: color 0.45s ease;
+      color: var(--warm-white);
+      opacity: 0;
+      transition: color 0.45s ease, opacity 0.45s ease;
     }
-    nav.scrolled .nav-logo-main { color: var(--warm-white); }
+    nav.scrolled .nav-logo-main { opacity: 1; }
     .nav-logo-sub {
       font-family: 'Figtree', sans-serif;
       font-size: 0.68rem;
       font-weight: 400;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--green);
+      color: var(--green-lt);
       margin-top: 2px;
-      transition: color 0.45s ease;
+      opacity: 0;
+      transition: color 0.45s ease, opacity 0.45s ease;
     }
-    nav.scrolled .nav-logo-sub { color: var(--green-lt); }
+    nav.scrolled .nav-logo-sub { opacity: 1; }
     .nav-links {
       list-style: none;
       display: flex;
@@ -206,10 +213,10 @@
     .nav-links a {
       text-decoration: none;
       font-size: 0.85rem;
-      font-weight: 400;
+      font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: rgba(44,44,44,0.85);
+      color: var(--dark);
       transition: color 0.25s;
     }
     nav.scrolled .nav-links a { color: rgba(245,240,232,0.9); }
