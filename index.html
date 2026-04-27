@@ -547,53 +547,85 @@
 
     /* ── WHY INOVAR ── */
     .why-section {
-      background: var(--warm-white);
+      background: var(--dark);
       padding: 6rem 8%;
     }
     .why-inner {
       max-width: 1200px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5rem;
-      align-items: center;
     }
-    .why-body {
-      font-size: 1.05rem;
-      line-height: 1.85;
-      color: var(--muted);
+    .why-header {
+      text-align: center;
+      margin-bottom: 4rem;
     }
-    .why-features {
+    .why-eyebrow {
+      color: var(--terra-lt);
+    }
+    .why-title {
+      color: var(--warm-white);
+      margin-bottom: 0;
+    }
+    .why-rule {
+      width: 40px;
+      height: 2px;
+      background: var(--terra);
+      margin: 1.2rem auto;
+    }
+    .why-intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--stone);
+      max-width: 560px;
+      margin: 0 auto;
+      font-weight: 300;
+    }
+    .why-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
+      margin-bottom: 4rem;
     }
-    .why-feat-card {
-      background: var(--sand);
-      border-radius: 6px;
-      padding: 1.5rem;
-      border: 1px solid rgba(200,191,175,0.5);
-      transition: border-color 0.3s, transform 0.3s;
+    .why-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(176, 122, 102, 0.15);
+      border-top: 3px solid var(--terra);
+      border-radius: 4px;
+      padding: 1.8rem;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
-    .why-feat-card:hover {
-      border-color: var(--terra);
-      transform: translateY(-3px);
+    .why-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(176, 122, 102, 0.5);
+      border-top-color: var(--terra);
     }
-    .why-feat-icon {
-      font-size: 1.6rem;
-      margin-bottom: 0.7rem;
+    .why-card-icon {
+      color: var(--terra-lt);
+      margin-bottom: 1rem;
+      transition: transform 0.3s ease;
     }
-    .why-feat-title {
+    .why-card:hover .why-card-icon {
+      transform: scale(1.08);
+    }
+    .why-card-name {
       font-family: 'Gloock', serif;
       font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--dark);
+      color: var(--warm-white);
       margin-bottom: 0.4rem;
     }
-    .why-feat-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
+    .why-card-desc {
+      font-size: 0.88rem;
+      color: var(--stone);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+    .why-cta {
+      text-align: center;
+    }
+    .why-cta-text {
+      color: var(--stone);
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+      font-weight: 300;
     }
 
     /* ── BEFORE/AFTER ── */
@@ -1007,7 +1039,7 @@
       .hero-text { padding: 4rem 6%; }
       .trust-inner { grid-template-columns: repeat(2, 1fr); }
       .product-grid { grid-template-columns: repeat(3, 1fr); }
-      .why-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .contact-inner { grid-template-columns: 1fr; gap: 3rem; }
       .contact-map { height: 320px; }
@@ -1034,7 +1066,8 @@
       .nav-wa { display: none; }
       .hamburger { display: flex; }
       .product-grid { grid-template-columns: repeat(2, 1fr); }
-      .why-features { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .why-section { padding: 4rem 5%; }
       .testi-grid { grid-template-columns: 1fr; max-width: 480px; }
       .gallery-grid { grid-template-columns: repeat(2, 1fr); }
       .calc-fields { grid-template-columns: 1fr 1fr; }
