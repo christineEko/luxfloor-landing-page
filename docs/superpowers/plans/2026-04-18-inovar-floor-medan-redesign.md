@@ -6,7 +6,7 @@
 
 **Architecture:** Single self-contained `index.html` file. All CSS lives inside one `<style>` block in `<head>`. All JS lives inside one `<script>` block at the bottom of `<body>`. No external libraries — vanilla HTML5/CSS3/JS only. Images loaded from `images/` folder (user provides photos).
 
-**Tech Stack:** HTML5, CSS3 (custom properties, grid, flexbox, keyframes), Vanilla JS (IntersectionObserver, drag events, accordion), Google Fonts (Cormorant Garamond + Jost via CDN)
+**Tech Stack:** HTML5, CSS3 (custom properties, grid, flexbox, keyframes), Vanilla JS (IntersectionObserver, drag events, accordion), Google Fonts (Gloock + Figtree via CDN)
 
 **Note on testing:** No build tools or test runner — verification is done by opening `index.html` directly in a browser after each task and checking the described visual output.
 
@@ -45,7 +45,7 @@ Replace the entire file contents with:
   <meta property="og:type" content="website" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -67,7 +67,7 @@ Replace the entire file contents with:
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Jost', sans-serif;
+      font-family: 'Figtree', sans-serif;
       background: var(--sand);
       color: var(--text);
       font-weight: 300;
@@ -95,7 +95,7 @@ Replace the entire file contents with:
     .btn-primary {
       display: inline-block;
       text-decoration: none;
-      font-family: 'Jost', sans-serif;
+      font-family: 'Figtree', sans-serif;
       font-size: 0.78rem;
       font-weight: 500;
       letter-spacing: 0.18em;
@@ -135,7 +135,7 @@ Replace the entire file contents with:
       margin-bottom: 0.9rem;
     }
     .section-title {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Gloock', serif;
       font-size: clamp(2rem, 3.5vw, 3rem);
       font-weight: 300;
       color: var(--dark);
@@ -325,14 +325,14 @@ nav.scrolled { box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
   margin-right: auto;
 }
 .nav-logo-main {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.35rem;
   font-weight: 500;
   letter-spacing: 0.1em;
   color: var(--warm-white);
 }
 .nav-logo-sub {
-  font-family: 'Jost', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 0.6rem;
   font-weight: 400;
   letter-spacing: 0.35em;
@@ -489,7 +489,7 @@ git commit -m "feat: add sticky navigation with hamburger menu"
   margin-bottom: 1.5rem;
 }
 .hero-h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: clamp(2.8rem, 4.5vw, 5rem);
   font-weight: 300;
   line-height: 1.1;
@@ -515,7 +515,7 @@ git commit -m "feat: add sticky navigation with hamburger menu"
 }
 .hero-phone svg { color: var(--gold); flex-shrink: 0; }
 .hero-phone a {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.9rem;
   font-weight: 400;
   color: var(--gold);
@@ -558,7 +558,7 @@ git commit -m "feat: add sticky navigation with hamburger menu"
 }
 .hero-badge-brand {
   display: block;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.5rem;
   font-weight: 500;
   color: var(--dark);
@@ -654,7 +654,7 @@ git commit -m "feat: add hero section with headline, phone, CTAs and wood panel"
   margin-top: 2px;
 }
 .trust-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.15rem;
   font-weight: 400;
   color: var(--warm-white);
@@ -733,7 +733,7 @@ git commit -m "feat: add quality trust badges strip"
 }
 .stat-item {}
 .stat-number {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: clamp(2.2rem, 4vw, 3.5rem);
   font-weight: 300;
   color: var(--green);
@@ -1010,7 +1010,7 @@ git commit -m "feat: add stats strip with social proof"
 .pt-monument { background: linear-gradient(170deg, #c8c0b0 0%, #989080 100%); }
 
 .product-name {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.15rem;
   font-weight: 400;
   color: var(--dark);
@@ -1140,7 +1140,7 @@ git commit -m "feat: add 12-product collection grid with WhatsApp enquiry links"
   margin-bottom: 0.7rem;
 }
 .why-feat-title {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--dark);
@@ -1550,7 +1550,7 @@ git commit -m "feat: add gallery grid and lightbox"
   border: 1px solid var(--stone);
   border-radius: 3px;
   background: var(--sand);
-  font-family: 'Jost', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 0.95rem;
   color: var(--text);
   transition: border-color 0.25s;
@@ -1580,7 +1580,7 @@ git commit -m "feat: add gallery grid and lightbox"
 }
 .calc-result-row:last-of-type { border-bottom: none; }
 .calc-result-row strong {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.4rem;
   color: var(--green);
 }
@@ -1711,7 +1711,7 @@ git commit -m "feat: add floor area calculator with collection recommendation"
 }
 .testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(28,43,30,0.1); }
 .testi-quote-mark {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 5rem;
   color: var(--gold);
   opacity: 0.25;
@@ -1721,7 +1721,7 @@ git commit -m "feat: add floor area calculator with collection recommendation"
 }
 .testi-text { font-size: 0.92rem; line-height: 1.8; color: var(--text); margin-bottom: 1.2rem; font-style: italic; }
 .testi-stars { color: var(--gold); font-size: 1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
-.testi-author { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 500; color: var(--dark); }
+.testi-author { font-family: 'Gloock', serif; font-size: 1.05rem; font-weight: 500; color: var(--dark); }
 .testi-location { font-size: 0.72rem; letter-spacing: 0.1em; color: var(--muted); margin-top: 0.2rem; }
 ```
 
@@ -1839,7 +1839,7 @@ git commit -m "feat: add testimonials section with 3 placeholder cards"
   border: none;
   padding: 1.4rem 0;
   text-align: left;
-  font-family: 'Jost', sans-serif;
+  font-family: 'Figtree', sans-serif;
   font-size: 0.95rem;
   font-weight: 400;
   color: var(--dark);
@@ -1976,7 +1976,7 @@ git commit -m "feat: add FAQ accordion with 6 questions"
 }
 .contact-phone {
   display: block;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 300;
   color: var(--gold);
@@ -2024,7 +2024,7 @@ footer { background: #111a12; padding: 3rem 8%; }
   border-bottom: 1px solid rgba(200,191,175,0.15);
 }
 .footer-logo {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'Gloock', serif;
   font-size: 1.4rem;
   font-weight: 500;
   letter-spacing: 0.08em;
