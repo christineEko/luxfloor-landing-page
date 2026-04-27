@@ -710,37 +710,45 @@
     /* ── GALLERY ── */
     .gallery-section { padding: 6rem 8%; background: var(--sand); }
     .gallery-header  { text-align: center; margin-bottom: 3.5rem; }
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .gallery-item {
-      aspect-ratio: 4/3;
-      position: relative;
+    /* ── GALLERY MARQUEE ── */
+    .gallery-track-wrap {
       overflow: hidden;
-      border-radius: 4px;
+      width: 100%;
       cursor: pointer;
-      background: var(--stone);
+      margin-top: 2rem;
     }
-    .gallery-item img { transition: transform 0.5s ease; }
-    .gallery-item:hover img { transform: scale(1.06); }
-    .gallery-overlay {
-      position: absolute; inset: 0;
-      background: rgba(28,43,30,0);
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.35s;
+    .gallery-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      animation: gallery-scroll 30s linear infinite;
     }
-    .gallery-item:hover .gallery-overlay { background: rgba(28,43,30,0.45); }
-    .gallery-overlay span {
-      font-size: 0.78rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: #fff;
-      opacity: 0;
-      transition: opacity 0.35s;
+    .gallery-track:hover {
+      animation-play-state: paused;
     }
-    .gallery-item:hover .gallery-overlay span { opacity: 1; }
+    .gallery-slide {
+      flex: 0 0 340px;
+      height: 260px;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .gallery-slide:hover img {
+      transform: scale(1.05);
+    }
+    @keyframes gallery-scroll {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @media (max-width: 768px) {
+      .gallery-slide { flex: 0 0 260px; height: 200px; }
+      .gallery-track { animation-duration: 22s; }
+    }
 
     /* ── LIGHTBOX ── */
     .lightbox {
@@ -1077,7 +1085,7 @@
       .why-grid { grid-template-columns: 1fr; }
       .why-section { padding: 4rem 5%; }
       .testi-grid { grid-template-columns: 1fr; max-width: 480px; }
-      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+
       .calc-fields { grid-template-columns: 1fr 1fr; }
       .footer-top { flex-direction: column; gap: 1.5rem; }
       .footer-links { gap: 1.2rem; }
@@ -1090,7 +1098,7 @@
       .product-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; }
       .stats-inner { grid-template-columns: repeat(2, 1fr); }
       .trust-inner { grid-template-columns: 1fr; }
-      .gallery-grid { grid-template-columns: 1fr; }
+
       .calc-fields { grid-template-columns: 1fr; }
       .float-wa { width: 52px; height: 52px; bottom: 1.2rem; right: 1.2rem; }
       .float-wa svg { width: 24px; height: 24px; }
@@ -1402,16 +1410,27 @@
         Hasil pemasangan INOVAR FLOOR di rumah dan gedung pelanggan kami
       </p>
     </div>
-    <div class="gallery-grid">
-      <div class="gallery-item reveal"           onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri 1" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d1"  onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri 2" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d2"  onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri 3" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d3"  onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri 4" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d1"  onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri 5" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d2"  onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri 6" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d3"  onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri 7" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d1"  onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri 8" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
-      <div class="gallery-item reveal reveal-d2"  onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri 9" loading="lazy"><div class="gallery-overlay"><span>Lihat Foto</span></div></div>
+    <div class="gallery-track-wrap">
+      <div class="gallery-track">
+        <div class="gallery-slide" onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri 1" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri 2" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri 3" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri 4" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri 5" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri 6" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri 7" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri 8" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri 9" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(0)"><img src="images/gallery-1.jpg" alt="Galeri 1" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(1)"><img src="images/gallery-2.jpg" alt="Galeri 2" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(2)"><img src="images/gallery-3.jpg" alt="Galeri 3" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(3)"><img src="images/gallery-4.jpg" alt="Galeri 4" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(4)"><img src="images/gallery-5.jpg" alt="Galeri 5" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(5)"><img src="images/gallery-6.jpg" alt="Galeri 6" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(6)"><img src="images/gallery-7.jpg" alt="Galeri 7" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(7)"><img src="images/gallery-8.jpg" alt="Galeri 8" loading="lazy"></div>
+        <div class="gallery-slide" onclick="openLightbox(8)"><img src="images/gallery-9.jpg" alt="Galeri 9" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
@@ -1706,7 +1725,7 @@
     })();
 
     // ── GALLERY LIGHTBOX ──
-    var lbImages = Array.from(document.querySelectorAll('.gallery-item img'));
+    var lbImages = Array.from(document.querySelectorAll('.gallery-slide img')).slice(0, 9);
     var lbIndex  = 0;
 
     function openLightbox(i) {
