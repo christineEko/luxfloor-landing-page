@@ -16,16 +16,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --dark:       #1c2b1e;
-      --green:      #2d6a4f;
-      --green-lt:   #3d8a65;
-      --sand:       #f5f0e8;
-      --warm-white: #faf8f4;
-      --gold:       #b8955a;
-      --gold-lt:    #d4aa70;
-      --text:       #2c2c2c;
-      --muted:      #524840;
-      --stone:      #c8bfaf;
+      --dark:       #1c1714;
+      --terra:      #8c5e4a;
+      --terra-lt:   #b07a66;
+      --sand:       #f2ede5;
+      --warm-white: #faf7f2;
+      --text:       #2c2420;
+      --muted:      #7a6b63;
+      --stone:      #c4b8af;
       --info-bar-h: 36px;
       --nav-h:      70px;
     }
@@ -67,14 +65,14 @@
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #fff;
-      background: var(--green);
+      background: var(--terra);
       padding: 1rem 2.2rem;
       border-radius: 3px;
       border: none;
       cursor: pointer;
       transition: background 0.3s, transform 0.2s;
     }
-    .btn-primary:hover { background: var(--green-lt); transform: translateY(-1px); }
+    .btn-primary:hover { background: var(--terra-lt); transform: translateY(-1px); }
 
     .btn-secondary {
       display: inline-block;
@@ -83,12 +81,12 @@
       font-weight: 400;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--gold);
-      border-bottom: 1px solid var(--gold);
+      color: var(--terra);
+      border-bottom: 1px solid var(--terra);
       padding-bottom: 2px;
       transition: color 0.25s;
     }
-    .btn-secondary:hover { color: var(--gold-lt); }
+    .btn-secondary:hover { color: var(--terra-lt); }
 
     /* ── SECTION HEADERS ── */
     .section-eyebrow {
@@ -97,7 +95,7 @@
       font-weight: 500;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--terra);
       margin-bottom: 0.9rem;
     }
     .section-title {
@@ -203,7 +201,7 @@
       font-weight: 400;
       letter-spacing: 0.35em;
       text-transform: uppercase;
-      color: var(--green-lt);
+      color: var(--terra-lt);
       margin-top: 2px;
       opacity: 0;
       transition: color 0.45s ease, opacity 0.45s ease;
@@ -224,7 +222,7 @@
       transition: color 0.25s;
     }
     nav.scrolled .nav-links a { color: rgba(245,240,232,0.9); }
-    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover { color: var(--terra); }
     .nav-wa {
       font-size: 0.72rem;
       padding: 0.6rem 1.3rem;
@@ -270,7 +268,7 @@
       font-weight: 500;
       letter-spacing: 0.3em;
       text-transform: uppercase;
-      color: var(--gold);
+      color: var(--terra);
       margin-bottom: 1.5rem;
     }
     .hero-h1 {
@@ -283,7 +281,7 @@
     }
     .hero-h1 em {
       font-style: italic;
-      color: var(--green);
+      color: var(--terra);
     }
     .hero-sub {
       font-size: 1rem;
@@ -298,17 +296,17 @@
       gap: 0.6rem;
       margin-bottom: 2rem;
     }
-    .hero-phone svg { color: var(--gold); flex-shrink: 0; }
+    .hero-phone svg { color: var(--terra); flex-shrink: 0; }
     .hero-phone a {
       font-family: 'Gloock', serif;
       font-size: 1.9rem;
       font-weight: 400;
-      color: var(--gold);
+      color: var(--terra);
       text-decoration: none;
       letter-spacing: 0.04em;
       transition: color 0.25s;
     }
-    .hero-phone a:hover { color: var(--gold-lt); }
+    .hero-phone a:hover { color: var(--terra-lt); }
     .hero-ctas { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
 
     .hero-panel {
@@ -355,7 +353,7 @@
       font-size: 0.7rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--green);
+      color: var(--terra);
       margin-top: 0.3rem;
     }
 
@@ -388,7 +386,7 @@
     .trust-icon {
       width: 36px; height: 36px;
       flex-shrink: 0;
-      color: var(--gold);
+      color: var(--terra);
       margin-top: 2px;
     }
     .trust-title {
@@ -422,7 +420,7 @@
       font-family: 'Gloock', serif;
       font-size: clamp(2.2rem, 4vw, 3.5rem);
       font-weight: 300;
-      color: var(--green);
+      color: var(--terra);
       line-height: 1;
       margin-bottom: 0.5rem;
     }
@@ -574,7 +572,7 @@
       transition: border-color 0.3s, transform 0.3s;
     }
     .why-feat-card:hover {
-      border-color: var(--green);
+      border-color: var(--terra);
       transform: translateY(-3px);
     }
     .why-feat-icon {
@@ -653,7 +651,7 @@
     .ba-handle-circle {
       width: 48px; height: 48px;
       border-radius: 50%;
-      background: var(--green);
+      background: var(--terra);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -753,7 +751,7 @@
       color: var(--text);
       transition: border-color 0.25s;
     }
-    .calc-field input:focus { outline: none; border-color: var(--green); }
+    .calc-field input:focus { outline: none; border-color: var(--terra); }
     .calc-btn { width: 100%; justify-content: center; padding: 1rem; }
     .calc-result {
       margin-top: 2rem;
@@ -780,7 +778,7 @@
     .calc-result-row strong {
       font-family: 'Gloock', serif;
       font-size: 1.4rem;
-      color: var(--green);
+      color: var(--terra);
     }
     .calc-rec {
       margin-top: 1.2rem;
@@ -792,7 +790,7 @@
       color: var(--text);
       line-height: 1.7;
     }
-    .calc-rec strong { color: var(--green); }
+    .calc-rec strong { color: var(--terra); }
 
     /* ── TESTIMONIALS ── */
     .testimonials { background: var(--sand); padding: 6rem 8%; }
@@ -816,14 +814,14 @@
     .testi-quote-mark {
       font-family: 'Gloock', serif;
       font-size: 5rem;
-      color: var(--gold);
+      color: var(--terra);
       opacity: 0.25;
       line-height: 0.8;
       margin-bottom: 1rem;
       font-weight: 300;
     }
     .testi-text { font-size: 1rem; line-height: 1.85; color: var(--text); margin-bottom: 1.2rem; font-style: italic; }
-    .testi-stars { color: var(--gold); font-size: 1.1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
+    .testi-stars { color: var(--terra); font-size: 1.1rem; letter-spacing: 0.1em; margin-bottom: 1rem; }
     .testi-author { font-family: 'Gloock', serif; font-size: 1.1rem; font-weight: 500; color: var(--dark); }
     .testi-location { font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); margin-top: 0.2rem; }
 
@@ -851,11 +849,11 @@
       gap: 1rem;
       transition: color 0.25s;
     }
-    .faq-question:hover { color: var(--green); }
+    .faq-question:hover { color: var(--terra); }
     .faq-icon {
       font-size: 1.4rem;
       font-weight: 300;
-      color: var(--gold);
+      color: var(--terra);
       flex-shrink: 0;
       transition: transform 0.3s;
       line-height: 1;
@@ -884,12 +882,12 @@
       font-family: 'Gloock', serif;
       font-size: clamp(2rem, 4vw, 3rem);
       font-weight: 300;
-      color: var(--gold);
+      color: var(--terra);
       text-decoration: none;
       margin: 1rem 0 0.5rem;
       transition: color 0.25s;
     }
-    .contact-phone:hover { color: var(--gold-lt); }
+    .contact-phone:hover { color: var(--terra-lt); }
     .contact-mobile { font-size: 0.95rem; color: rgba(245,240,232,0.75); margin-bottom: 1.5rem; }
     .contact-wa-btn { display: inline-flex; align-items: center; margin-bottom: 2rem; }
     .contact-address {
@@ -935,7 +933,7 @@
       letter-spacing: 0.08em;
       color: var(--warm-white);
     }
-    .footer-logo span { color: var(--green-lt); }
+    .footer-logo span { color: var(--terra-lt); }
     .footer-tagline { font-size: 0.82rem; color: rgba(245,240,232,0.5); margin-top: 0.4rem; letter-spacing: 0.06em; }
     .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; }
     .footer-links a {
@@ -946,7 +944,7 @@
       color: var(--muted);
       transition: color 0.25s;
     }
-    .footer-links a:hover { color: var(--gold); }
+    .footer-links a:hover { color: var(--terra); }
     .footer-bottom { max-width: 1200px; margin: 0 auto; }
     .footer-bottom p { font-size: 0.82rem; color: rgba(245,240,232,0.35); }
 
@@ -1342,7 +1340,7 @@
   <!-- BEFORE/AFTER -->
   <section class="ba-section">
     <div class="ba-header reveal">
-      <span class="section-eyebrow" style="color:var(--gold-lt)">Hasil Nyata</span>
+      <span class="section-eyebrow" style="color:var(--terra-lt)">Hasil Nyata</span>
       <h2 class="section-title section-title-light">Transformasi Nyata</h2>
       <p style="color:var(--stone);font-size:0.9rem;margin-top:0.5rem">Geser untuk melihat perbedaannya</p>
     </div>
@@ -1547,7 +1545,7 @@
   <section class="contact-section" id="kontak">
     <div class="contact-inner">
       <div class="contact-details reveal-left">
-        <span class="section-eyebrow" style="color:var(--gold-lt)">Hubungi Kami</span>
+        <span class="section-eyebrow" style="color:var(--terra-lt)">Hubungi Kami</span>
         <h2 class="section-title section-title-light">Kunjungi Toko Kami</h2>
         <a href="tel:+62614559900" class="contact-phone">(061) 4559900</a>
         <p class="contact-mobile">&#128241; [Nomor HP segera hadir]</p>
@@ -1556,7 +1554,7 @@
           Chat WhatsApp Sekarang
         </a>
         <div class="contact-address">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--terra)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
           <p>Jl. M.H Thamrin No.1-i, Sidodadi,<br>Kec. Medan Tim., Kota Medan,<br>Sumatera Utara 20233</p>
         </div>
         <div class="contact-hours">
